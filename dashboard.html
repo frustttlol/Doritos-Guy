@@ -20,9 +20,9 @@
     --green:#3ecf6e;
   }
   *{margin:0;padding:0;box-sizing:border-box}
-  body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;min-height:100vh;}
+  body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;min-height:100vh}
   .display{font-family:'Bebas Neue',sans-serif;letter-spacing:.03em}
-  header{display:flex;align-items:center;justify-content:space-between;padding:16px 6%;background:#0b0e13;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:10;}
+  header{display:flex;align-items:center;justify-content:space-between;padding:16px 6%;background:#0b0e13;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:10}
   .brand{display:flex;align-items:center;gap:10px;cursor:pointer}
   .brand .chip{font-size:26px}
   .server-select{position:relative}
@@ -55,7 +55,7 @@
     <span>Doritos Guy <span class="tag">DASHBOARD</span></span>
   </div>
   <div class="server-select">
-    <div class="server-select-btn" id="select-btn">Connect a Server ▾</div>
+    <div class="server-select-btn" id="select-btn">No Server Selected ▾</div>
   </div>
   <button class="connect-btn" onclick="loginWithDiscord()">Connect Discord</button>
 </header>
@@ -65,14 +65,33 @@
   <p style="color:var(--muted)">Real Discord connection active</p>
 
   <div class="stats">
-    <div class="stat"><div class="label">Total members</div><div class="value orange" id="stat-total">—</div></div>
-    <div class="stat"><div class="label">Verified members</div><div class="value" id="stat-verified">—</div></div>
-    <div class="stat"><div class="label">Commands today</div><div class="value" id="stat-commands">—</div></div>
+    <div class="stat"><div class="label">Total members</div><div class="value orange" id="stat-total">1,337</div></div>
+    <div class="stat"><div class="label">Verified members</div><div class="value" id="stat-verified">892</div></div>
+    <div class="stat"><div class="label">Commands today</div><div class="value" id="stat-commands">47</div></div>
   </div>
 
   <div class="meter-section">
     <h2 class="display">Crunch-O-Meter™</h2>
-    <div class="gauge-track"><div class="gauge-fill" id="gauge" style="width:45%"></div></div>
+    <div class="gauge-track"><div class="gauge-fill" id="gauge" style="width:65%"></div></div>
+    <div style="margin-top:10px;color:var(--dust)">Medium Heat — solid coverage</div>
+  </div>
+
+  <div class="lower">
+    <div class="panel">
+      <h3>Server Settings</h3>
+      <div class="setting-row">
+        <div><strong>Member verification</strong><br><small>New members must verify</small></div>
+        <label class="switch"><input type="checkbox" checked><span class="slider"></span></label>
+      </div>
+      <div class="setting-row">
+        <div><strong>Auto-moderation</strong><br><small>Filters spam & links</small></div>
+        <label class="switch"><input type="checkbox" checked><span class="slider"></span></label>
+      </div>
+      <div class="setting-row">
+        <div><strong>Anti-raid mode</strong><br><small>Auto lock on raid</small></div>
+        <label class="switch"><input type="checkbox"><span class="slider"></span></label>
+      </div>
+    </div>
   </div>
 </main>
 
