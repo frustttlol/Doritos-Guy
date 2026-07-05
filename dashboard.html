@@ -21,94 +21,52 @@
     --red:#ff4d4d;
   }
   *{margin:0;padding:0;box-sizing:border-box}
-  body{
-    background:var(--bg);
-    color:var(--text);
-    font-family:'Inter',Arial,sans-serif;
-    min-height:100vh;
-  }
+  body{background:var(--bg);color:var(--text);font-family:'Inter',Arial,sans-serif;min-height:100vh;}
   .display{font-family:'Bebas Neue',Arial,sans-serif;letter-spacing:.03em}
   .mono{font-family:'IBM Plex Mono',monospace}
-  /* ---- top bar ---- */
-  header{
-    display:flex;align-items:center;justify-content:space-between;
-    padding:16px 6%;
-    background:#0b0e13;
-    border-bottom:1px solid var(--line);
-    position:sticky;top:0;z-index:10;
-  }
+  header{display:flex;align-items:center;justify-content:space-between;padding:16px 6%;background:#0b0e13;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:10;}
   .brand{display:flex;align-items:center;gap:10px;cursor:pointer}
   .brand .chip{font-size:26px}
   .brand span{font-size:22px;font-weight:700}
-  .brand .tag{
-    font-size:10px;color:var(--dust);border:1px solid var(--orange-dim);
-    padding:2px 7px;border-radius:20px;margin-left:6px;letter-spacing:.08em;
-  }
+  .brand .tag{font-size:10px;color:var(--dust);border:1px solid var(--orange-dim);padding:2px 7px;border-radius:20px;margin-left:6px;letter-spacing:.08em;}
   .server-select{position:relative;}
-  .server-select-btn{
-    display:flex;align-items:center;gap:10px;
-    background:var(--panel);border:1px solid var(--line);
-    padding:8px 14px;border-radius:10px;font-size:14px;color:var(--text);
-    cursor:pointer;user-select:none;
-  }
+  .server-select-btn{display:flex;align-items:center;gap:10px;background:var(--panel);border:1px solid var(--line);padding:8px 14px;border-radius:10px;font-size:14px;color:var(--text);cursor:pointer;}
   .server-select-btn:hover{border-color:var(--orange-dim)}
-  .server-select .dot{width:8px;height:8px;border-radius:50%;background:var(--green);flex:0 0 auto}
+  .server-select .dot{width:8px;height:8px;border-radius:50%;background:var(--green);}
   .server-select .dot.offline{background:#5a6272}
-  .server-menu{
-    position:absolute;top:calc(100% + 8px);left:0;min-width:260px;
-    background:var(--panel-hi);border:1px solid var(--line);border-radius:12px;
-    padding:6px;display:none;flex-direction:column;gap:2px;
-    box-shadow:0 10px 30px rgba(0,0,0,.4);z-index:20;
-  }
+  .server-menu{position:absolute;top:calc(100% + 8px);left:0;min-width:260px;background:var(--panel-hi);border:1px solid var(--line);border-radius:12px;padding:6px;display:none;flex-direction:column;gap:2px;box-shadow:0 10px 30px rgba(0,0,0,.4);z-index:20;}
   .server-menu.open{display:flex}
-  .server-option{
-    display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:8px;
-    cursor:pointer;font-size:13.5px;
-  }
+  .server-option{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:8px;cursor:pointer;font-size:13.5px;}
   .server-option:hover{background:#262d3a}
   .server-option.active{background:var(--orange-dim);color:var(--dust)}
   .user{display:flex;align-items:center;gap:10px}
-  .user img{width:34px;height:34px;border-radius:50%;border:2px solid var(--orange)}
+  .connect-btn{background:var(--orange);color:#000;font-weight:700;padding:10px 20px;border-radius:8px;border:none;cursor:pointer;font-size:15px;}
+  .connect-btn:hover{background:#ff8c00}
   main{padding:40px 6% 80px;max-width:1200px;margin:0 auto}
   h1.page-title{font-size:40px;line-height:1}
   .subtitle{color:var(--muted);margin-top:6px;font-size:15px}
-  .stats{
-    display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
-    gap:16px;margin-top:32px;
-  }
-  .stat{
-    background:var(--panel);border:1px solid var(--line);border-radius:14px;
-    padding:20px;
-  }
+  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-top:32px;}
+  .stat{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px;}
   .stat .label{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
-  .stat .value{font-family:'Bebas Neue',Arial;font-size:38px;margin-top:6px;color:var(--text)}
+  .stat .value{font-family:'Bebas Neue',Arial;font-size:38px;margin-top:6px;}
   .stat .value.orange{color:var(--orange)}
-  .meter-section{
-    margin-top:40px;background:var(--panel);border:1px solid var(--line);
-    border-radius:16px;padding:28px 28px 24px;
-  }
+  .meter-section{margin-top:40px;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:28px 28px 24px;}
   .lower{display:grid;grid-template-columns:1.3fr 1fr;gap:20px;margin-top:20px}
   @media (max-width:860px){.lower{grid-template-columns:1fr}}
-  .panel{
-    background:var(--panel);border:1px solid var(--line);border-radius:16px;
-    padding:24px;
-  }
-  .setting-row{
-    display:flex;align-items:center;justify-content:space-between;
-    padding:14px 0;border-top:1px solid var(--line);
-  }
+  .panel{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:24px;}
+  .setting-row{display:flex;align-items:center;justify-content:space-between;padding:14px 0;border-top:1px solid var(--line);}
   .setting-row:first-of-type{border-top:none}
+  .switch{position:relative;width:44px;height:25px;flex:0 0 auto;cursor:pointer;}
+  .switch input{opacity:0;width:0;height:0}
+  .slider{position:absolute;inset:0;background:#2a3140;border-radius:30px;transition:.25s;}
+  .slider::before{content:"";position:absolute;width:19px;height:19px;left:3px;top:3px;background:#fff;border-radius:50%;transition:.25s;}
+  .switch input:checked + .slider{background:var(--orange)}
+  .switch input:checked + .slider::before{transform:translateX(19px)}
   .log-list{display:flex;flex-direction:column;gap:2px;max-height:360px;overflow-y:auto}
-  .log-item{
-    display:flex;gap:12px;padding:12px 0;border-top:1px solid var(--line);
-    font-size:13.5px;
-  }
+  .log-item{display:flex;gap:12px;padding:12px 0;border-top:1px solid var(--line);font-size:13.5px;}
+  .log-icon{width:30px;height:30px;border-radius:8px;background:var(--panel-hi);display:flex;align-items:center;justify-content:center;flex:0 0 auto;font-size:15px}
   .empty-state{padding:24px 4px;color:var(--muted);font-size:13.5px;text-align:center;line-height:1.5}
-  .connect-btn{
-    background:var(--orange);color:#000;font-weight:700;padding:10px 20px;
-    border-radius:8px;border:none;cursor:pointer;font-size:15px;
-  }
-  .connect-btn:hover{background:#ff8c00}
+  footer{text-align:center;padding:40px;color:var(--muted);font-size:13px;border-top:1px solid var(--line)}
 </style>
 </head>
 <body>
@@ -121,7 +79,7 @@
   <div class="server-select" id="server-select">
     <div class="server-select-btn" onclick="toggleMenu()" id="select-btn">
       <span class="dot" id="select-dot"></span> 
-      <span id="select-name">Connect Discord</span> ▾
+      <span id="select-name">Connect to Discord</span> ▾
     </div>
     <div class="server-menu" id="server-menu"></div>
   </div>
@@ -148,17 +106,16 @@
       <div class="delta" id="stat-verified-delta"></div>
     </div>
     <div class="stat">
-      <div class="label">Commands today</div>
+      <div class="label">Commands run today</div>
       <div class="value" id="stat-commands">—</div>
       <div class="delta" style="color:var(--dust)" id="stat-commands-delta"></div>
     </div>
     <div class="stat">
       <div class="label">Uptime</div>
-      <div class="value mono" style="font-size:30px" id="uptime">99.8%</div>
+      <div class="value mono" style="font-size:30px">99.8%</div>
     </div>
   </div>
 
-  <!-- Crunch-O-Meter and Settings remain the same (only minor JS updates) -->
   <div class="meter-section">
     <div class="meter-head">
       <div>
@@ -178,7 +135,6 @@
     <div class="panel">
       <h3>Server Settings</h3>
       <div class="sub">Toggle what Doritos Guy actively enforces on this server.</div>
-      <!-- Your existing settings rows here (unchanged) -->
       <div class="setting-row">
         <div class="setting-copy"><strong>Member verification</strong><span>New members must verify before they can chat.</span></div>
         <label class="switch"><input type="checkbox" id="setting-verification" checked data-weight="20" onchange="recalc()"><span class="slider"></span></label>
@@ -209,47 +165,47 @@
       <h3>Crunch Log</h3>
       <div class="sub">Recent activity across your server.</div>
       <div class="log-list" id="log-list">
-        <div class="empty-state">No activity yet — connect a server first.</div>
+        <div class="empty-state">Connect your Discord account to see logs.</div>
       </div>
     </div>
   </div>
 </main>
 
-<footer>© 2026 Doritos Guy — Real Discord connection active</footer>
+<footer>© 2026 Doritos Guy — Connected with Client ID ending in 3162</footer>
 
 <script>
-// ================== DISCORD OAUTH2 ==================
-const CLIENT_ID = '1522890288920793162'; // ← Replace with your Discord Application Client ID
-const REDIRECT_URI = window.location.href.split('?')[0]; // Current page
+// ================== DISCORD CONFIG ==================
+const CLIENT_ID = "1522890288920793162";
+const REDIRECT_URI = window.location.href.split('?')[0].split('#')[0];
 
-async function loginWithDiscord() {
-  const scope = 'identify guilds';
-  const oauthUrl = `https://discord.com/api/oauth2/authorize?client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&response_type=token&scope=${encodeURIComponent(scope)}`;
-  window.location.href = oauthUrl;
+function loginWithDiscord() {
+  const scope = "identify guilds";
+  const url = `https://discord.com/api/oauth2/authorize?client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&response_type=token&scope=${encodeURIComponent(scope)}`;
+  window.location.href = url;
 }
 
-// Parse access token from URL fragment
+let servers = [];
+let activeServerId = null;
+const weights = { verification: 20, automod: 20, antiraid: 25, logging: 15, welcome: 5, fun: 0 };
+
 function getAccessToken() {
   const hash = window.location.hash.substring(1);
   const params = new URLSearchParams(hash);
   return params.get('access_token');
 }
 
-// Fetch user + guilds
 async function loadDiscordData() {
   const token = getAccessToken();
   if (!token) return;
 
   try {
-    // Fetch user info
     const userRes = await fetch('https://discord.com/api/users/@me', {
       headers: { Authorization: `Bearer ${token}` }
     });
     const user = await userRes.json();
-    document.getElementById('username').textContent = user.username;
+    document.getElementById('username').textContent = user.username || "User";
     document.getElementById('login-btn').style.display = 'none';
 
-    // Fetch guilds
     const guildsRes = await fetch('https://discord.com/api/users/@me/guilds', {
       headers: { Authorization: `Bearer ${token}` }
     });
@@ -259,37 +215,31 @@ async function loadDiscordData() {
       id: g.id,
       name: g.name,
       online: true,
-      icon: g.icon,
       stats: {
-        totalMembers: g.approximate_member_count || Math.floor(Math.random()*5000)+100,
-        totalDelta: '+12 this week',
-        verifiedMembers: Math.floor(g.approximate_member_count * 0.7) || 0,
-        commandsToday: Math.floor(Math.random()*80),
-        commandsDelta: '+7'
+        totalMembers: g.approximate_member_count || 420,
+        totalDelta: "+12 this week",
+        verifiedMembers: Math.floor((g.approximate_member_count || 420) * 0.65),
+        commandsToday: Math.floor(Math.random() * 120),
+        commandsDelta: "+8"
       },
       settings: { verification: true, automod: true, antiraid: false, logging: true, welcome: true, fun: true },
       log: [
-        { icon: '🛡️', text: 'Anti-raid mode activated', time: '2m ago' },
-        { icon: '🥔', text: 'Welcome message sent to 3 new chips', time: '15m ago' }
+        { icon: '🛡️', text: 'Anti-raid triggered', time: '3m ago' },
+        { icon: '🥔', text: 'New member welcomed', time: '17m ago' }
       ]
     }));
 
     renderServerMenu();
-    if (servers.length) selectServer(servers[0].id);
-  } catch (e) {
-    console.error(e);
-    alert("Failed to fetch Discord data. Make sure your bot/app has proper permissions.");
+    if (servers.length > 0) selectServer(servers[0].id);
+  } catch (err) {
+    console.error(err);
+    alert("Could not load Discord data. Make sure you added the redirect URI in Discord Developer Portal.");
   }
 }
 
-// Rest of your original script (renderServerMenu, selectServer, recalc, etc.)
-let servers = [];
-let activeServerId = null;
-const weights = { verification: 20, automod: 20, antiraid: 25, logging: 15, welcome: 5, fun: 0 };
-
-function renderServerMenu(){
+function renderServerMenu() {
   const menu = document.getElementById('server-menu');
-  if(servers.length === 0){
+  if (servers.length === 0) {
     menu.innerHTML = '<div class="empty-state">No servers found.</div>';
     return;
   }
@@ -302,33 +252,64 @@ function renderServerMenu(){
   `).join('');
 }
 
-function toggleMenu(){ document.getElementById('server-menu').classList.toggle('open'); }
-function selectServer(id){ /* ... your original selectServer logic ... */ 
-  // (kept the same as your original for brevity — paste it back if needed)
+function toggleMenu() {
+  document.getElementById('server-menu').classList.toggle('open');
+}
+
+function selectServer(id) {
   activeServerId = id;
   const s = servers.find(x => x.id === id);
-  if(!s) return;
+  if (!s) return;
+
   document.getElementById('select-name').textContent = s.name;
   document.getElementById('select-dot').className = 'dot';
-  // update stats...
+
   document.getElementById('stat-total').textContent = s.stats.totalMembers.toLocaleString();
-  // ... (rest same as original)
+  document.getElementById('stat-total-delta').textContent = s.stats.totalDelta;
+  document.getElementById('stat-verified').textContent = s.stats.verifiedMembers.toLocaleString();
+  document.getElementById('stat-commands').textContent = s.stats.commandsToday;
+
+  // Load settings
+  Object.keys(weights).forEach(key => {
+    const el = document.getElementById('setting-' + key);
+    if (el) el.checked = !!s.settings[key];
+  });
+
+  // Load logs
+  const logList = document.getElementById('log-list');
+  logList.innerHTML = s.log.map(item => `
+    <div class="log-item">
+      <div class="log-icon">${item.icon}</div>
+      <div class="log-text">
+        <div>${item.text}</div>
+        <div class="log-time">${item.time}</div>
+      </div>
+    </div>
+  `).join('');
+
   recalc();
 }
 
-function recalc(){ /* your original recalc function */ 
+function recalc() {
   let score = 0;
   Object.keys(weights).forEach(key => {
     const box = document.getElementById('setting-' + key);
-    if(box && box.checked) score += weights[key];
+    if (box && box.checked) score += weights[key];
   });
   score = Math.min(score, 100);
+
   document.getElementById('gauge').style.width = score + '%';
   document.getElementById('score-num').textContent = score;
-  // badge logic...
+
+  const badge = document.getElementById('badge');
+  if (score < 20) badge.textContent = "Status: Stale Chip — barely protected";
+  else if (score < 45) badge.textContent = "Status: Mildly Protected";
+  else if (score < 70) badge.textContent = "Status: Medium Heat — solid coverage";
+  else if (score < 90) badge.textContent = "Status: Hot — well defended";
+  else badge.textContent = "Status: Nuclear — maximum crunch achieved";
 }
 
-// Auto-run on load
+// Init
 window.onload = () => {
   if (getAccessToken()) {
     loadDiscordData();
