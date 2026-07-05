@@ -68,37 +68,12 @@ text-decoration:none;
 <img src="dorito.PNG">
 <h1>Doritos Guy</h1>
 <p>Sign in with Discord to access your dashboard.</p>
-<button onclick="login()">
+<button onclick="window.location.href='https://discord.com/oauth2/authorize?client_id=1522890288920793162&response_type=token&redirect_uri=https%3A%2F%2Ffrustttlol.github.io%2FDoritos-Guy%2Fdashboard.html&scope=identify+guilds'">
 Continue with Discord
 </button>
 <a class="back" href="index.html">
 ← Back to Home
 </a>
 </div>
-
-<script>
-
-const CLIENT_ID = "1522890288920793162";
-const REDIRECT_URI = window.location.origin + window.location.pathname.replace("login.html", "dashboard.html");
-
-function login(){
-  document.body.innerHTML=`
-  <div style="display:flex;justify-content:center;align-items:center;height:100vh;font-size:28px;">
-  Logging in...
-  </div>
-  `;
-
-  const params = new URLSearchParams({
-    client_id: CLIENT_ID,
-    redirect_uri: REDIRECT_URI,
-    response_type: "token",
-    scope: "identify guilds"
-  });
-
-  setTimeout(function(){
-    window.location.href = "https://discord.com/oauth2/authorize?" + params.toString();
-  }, 800);
-}
-</script>
 </body>
 </html>
