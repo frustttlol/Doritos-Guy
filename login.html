@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login | Doritos Guy</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    background:#0d1117;
+    color:white;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+}
+
+.card{
+    background:#161b22;
+    padding:40px;
+    border-radius:18px;
+    width:380px;
+    text-align:center;
+    box-shadow:0 0 30px rgba(255,90,0,.25);
+}
+
+img{
+    width:110px;
+    height:110px;
+    border-radius:50%;
+    border:4px solid #ff5a00;
+    margin-bottom:20px;
+}
+
+h1{
+    margin-bottom:10px;
+}
+
+p{
+    color:#bdbdbd;
+    margin-bottom:25px;
+}
+
+button{
+    width:100%;
+    padding:15px;
+    border:none;
+    border-radius:12px;
+    background:#5865F2;
+    color:white;
+    font-size:17px;
+    cursor:pointer;
+    transition:.2s;
+}
+
+button:hover{
+    transform:scale(1.03);
+}
+
+.back{
+    display:block;
+    margin-top:20px;
+    color:#ff5a00;
+    text-decoration:none;
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+
+<img src="dorito.PNG">
+
+<h1>Doritos Guy</h1>
+
+<p>Sign in with Discord to access your dashboard.</p>
+
+<button onclick="login()">
+Continue with Discord
+</button>
+
+<a class="back" href="index.html">
+← Back to Home
+</a>
+
+</div>
+
+<script>
+function login(){
+
+    document.body.innerHTML=`
+    <div style="display:flex;justify-content:center;align-items:center;height:100vh;font-size:28px;">
+    Logging in...
+    </div>
+    `;
+
+    setTimeout(function(){
+        window.location.href="dashboard.html";
+    },2000);
+
+}
+</script>
+
+</body>
+</html>
