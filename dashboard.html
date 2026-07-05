@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Dashboard · Doritos Guy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0d1117;
+    --panel:#161b22;
+    --panel-hi:#1d2430;
+    --line:#262d3a;
+    --text:#f2f3f5;
+    --muted:#8b94a3;
+    --orange:#ff5a00;
+    --orange-dim:#7a3113;
+    --dust:#ffb800;
+    --green:#3ecf6e;
+    --red:#ff4d4d;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Inter',Arial,sans-serif;
+    min-height:100vh;
+  }
+  .display{font-family:'Bebas Neue',Arial,sans-serif;letter-spacing:.03em}
+  .mono{font-family:'IBM Plex Mono',monospace}
+
+  /* ---- top bar ---- */
+  header{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:16px 6%;
+    background:#0b0e13;
+    border-bottom:1px solid var(--line);
+    position:sticky;top:0;z-index:10;
+  }
+  .brand{display:flex;align-items:center;gap:10px;cursor:pointer}
+  .brand .chip{font-size:26px}
+  .brand span{font-size:22px;font-weight:700}
+  .brand .tag{
+    font-size:10px;color:var(--dust);border:1px solid var(--orange-dim);
+    padding:2px 7px;border-radius:20px;margin-left:6px;letter-spacing:.08em;
+  }
+  .server-select{
+    position:relative;
+  }
+  .server-select-btn{
+    display:flex;align-items:center;gap:10px;
+    background:var(--panel);border:1px solid var(--line);
+    padding:8px 14px;border-radius:10px;font-size:14px;color:var(--text);
+    cursor:pointer;user-select:none;
+  }
+  .server-select-btn:hover{border-color:var(--orange-dim)}
+  .server-select .dot{width:8px;height:8px;border-radius:50%;background:var(--green);flex:0 0 auto}
+  .server-select .dot.offline{background:#5a6272}
+  .server-menu{
+    position:absolute;top:calc(100% + 8px);left:0;min-width:220px;
+    background:var(--panel-hi);border:1px solid var(--line);border-radius:12px;
+    padding:6px;display:none;flex-direction:column;gap:2px;
+    box-shadow:0 10px 30px rgba(0,0,0,.4);z-index:20;
+  }
+  .server-menu.open{display:flex}
+  .server-option{
+    display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:8px;
+    cursor:pointer;font-size:13.5px;
+  }
+  .server-option:hover{background:#262d3a}
+  .server-option.active{background:var(--orange-dim);color:var(--dust)}
+  .server-option .name{flex:1}
+  .server-option .members{font-size:11px;color:var(--muted)}
+  .user{display:flex;align-items:center;gap:10px}
+  .user img{width:34px;height:34px;border-radius:50%;border:2px solid var(--orange)}
+
+  main{padding:40px 6% 80px;max-width:1200px;margin:0 auto}
+
+  h1.page-title{font-size:40px;line-height:1}
+  .subtitle{color:var(--muted);margin-top:6px;font-size:15px}
+
+  /* ---- stat cards ---- */
+  .stats{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+    gap:16px;margin-top:32px;
+  }
+  .stat{
+    background:var(--panel);border:1px solid var(--line);border-radius:14px;
+    padding:20px;
+  }
+  .stat .label{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+  .stat .value{font-family:'Bebas Neue',Arial;font-size:38px;margin-top:6px;color:var(--text)}
+  .stat .value.orange{color:var(--orange)}
+  .stat .delta{font-size:12px;margin-top:4px;color:var(--green)}
+
+  /* ---- crunch-o-meter ---- */
+  .meter-section{
+    margin-top:40px;background:var(--panel);border:1px solid var(--line);
+    border-radius:16px;padding:28px 28px 24px;
+  }
+  .meter-head{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:8px}
+  .meter-head h2{font-size:26px}
+  .meter-head p{color:var(--muted);font-size:13px;margin-top:4px}
+  .meter-score{font-family:'Bebas Neue';font-size:30px;color:var(--dust)}
+  .gauge-wrap{margin-top:22px}
+  .gauge-track{
+    position:relative;height:26px;border-radius:30px;background:#0b0e13;
+    border:1px solid var(--line);overflow:hidden;
+  }
+  .gauge-fill{
+    height:100%;border-radius:30px;
+    background:linear-gradient(90deg,#ffd93d,var(--dust),var(--orange),#c62b00);
+    width:40%;transition:width .5s cubic-bezier(.4,0,.2,1);
+    box-shadow:0 0 18px rgba(255,90,0,.5);
+  }
+  .gauge-labels{display:flex;justify-content:space-between;margin-top:8px;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+  .gauge-badge{
+    display:inline-block;margin-top:14px;padding:6px 14px;border-radius:20px;
+    background:var(--orange-dim);color:var(--dust);font-size:13px;font-weight:600;
+  }
+
+  /* ---- settings + activity layout ---- */
+  .lower{display:grid;grid-template-columns:1.3fr 1fr;gap:20px;margin-top:20px}
+  @media (max-width:860px){.lower{grid-template-columns:1fr}}
+
+  .panel{
+    background:var(--panel);border:1px solid var(--line);border-radius:16px;
+    padding:24px;
+  }
+  .panel h3{font-size:20px;margin-bottom:4px}
+  .panel .sub{color:var(--muted);font-size:13px;margin-bottom:18px}
+
+  .setting-row{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:14px 0;border-top:1px solid var(--line);
+  }
+  .setting-row:first-of-type{border-top:none}
+  .setting-copy strong{font-size:14.5px;display:block}
+  .setting-copy span{font-size:12.5px;color:var(--muted)}
+
+  .switch{
+    position:relative;width:44px;height:25px;flex:0 0 auto;cursor:pointer;
+  }
+  .switch input{opacity:0;width:0;height:0}
+  .slider{
+    position:absolute;inset:0;background:#2a3140;border-radius:30px;transition:.25s;
+  }
+  .slider::before{
+    content:"";position:absolute;width:19px;height:19px;left:3px;top:3px;
+    background:#fff;border-radius:50%;transition:.25s;
+  }
+  .switch input:checked + .slider{background:var(--orange)}
+  .switch input:checked + .slider::before{transform:translateX(19px)}
+
+  /* ---- activity log ---- */
+  .log-list{display:flex;flex-direction:column;gap:2px;max-height:360px;overflow-y:auto}
+  .log-item{
+    display:flex;gap:12px;padding:12px 0;border-top:1px solid var(--line);
+    font-size:13.5px;
+  }
+  .log-item:first-child{border-top:none}
+  .log-icon{width:30px;height:30px;border-radius:8px;background:var(--panel-hi);
+    display:flex;align-items:center;justify-content:center;flex:0 0 auto;font-size:15px}
+  .log-text strong{font-weight:600}
+  .log-time{color:var(--muted);font-size:11.5px;margin-top:2px}
+  .empty-state{padding:24px 4px;color:var(--muted);font-size:13.5px;text-align:center;line-height:1.5}
+
+  footer{text-align:center;padding:40px;color:var(--muted);font-size:13px;border-top:1px solid var(--line)}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brand" onclick="alert('🥔 Crunch detected! Server security increased by 9999%.')">
+    <span class="chip">🥔</span>
+    <span>Doritos Guy<span class="tag">DASHBOARD</span></span>
+  </div>
+  <div class="server-select" id="server-select">
+    <div class="server-select-btn" onclick="toggleMenu()">
+      <span class="dot" id="select-dot"></span> <span id="select-name">Snack Squad</span> ▾
+    </div>
+    <div class="server-menu" id="server-menu"></div>
+  </div>
+  <div class="user">
+    <span style="font-size:13px;color:var(--muted)">frustttlol</span>
+    <img src="dorito.PNG" alt="avatar">
+  </div>
+</header>
+
+<main>
+  <h1 class="page-title display">Overview</h1>
+  <p class="subtitle">Looks like a snack. Protects like a security guard.</p>
+
+  <div class="stats">
+    <div class="stat">
+      <div class="label">Total members</div>
+      <div class="value orange" id="stat-total">—</div>
+      <div class="delta" id="stat-total-delta">Connect a server</div>
+    </div>
+    <div class="stat">
+      <div class="label">Verified members</div>
+      <div class="value" id="stat-verified">—</div>
+      <div class="delta" id="stat-verified-delta"></div>
+    </div>
+    <div class="stat">
+      <div class="label">Commands run today</div>
+      <div class="value" id="stat-commands">—</div>
+      <div class="delta" style="color:var(--dust)" id="stat-commands-delta"></div>
+    </div>
+    <div class="stat">
+      <div class="label">Uptime</div>
+      <div class="value mono" style="font-size:30px">—</div>
+      <div class="delta" style="color:var(--muted)"></div>
+    </div>
+  </div>
+
+  <div class="meter-section">
+    <div class="meter-head">
+      <div>
+        <h2 class="display">Crunch-O-Meter™</h2>
+        <p>Aggregate protection level, calculated from the settings enabled below.</p>
+      </div>
+      <div class="meter-score"><span id="score-num">40</span>% CRUNCHY</div>
+    </div>
+    <div class="gauge-wrap">
+      <div class="gauge-track"><div class="gauge-fill" id="gauge"></div></div>
+      <div class="gauge-labels"><span>Stale Chip</span><span>Mild</span><span>Medium</span><span>Hot</span><span>Nuclear</span></div>
+    </div>
+    <div class="gauge-badge" id="badge">Status: Mildly Protected</div>
+  </div>
+
+  <div class="lower">
+    <div class="panel">
+      <h3>Server Settings</h3>
+      <div class="sub">Toggle what Doritos Guy actively enforces on this server.</div>
+
+      <div class="setting-row">
+        <div class="setting-copy">
+          <strong>Member verification</strong>
+          <span>New members must verify before they can chat.</span>
+        </div>
+        <label class="switch">
+          <input type="checkbox" id="setting-verification" checked data-weight="20" onchange="recalc()">
+          <span class="slider"></span>
+        </label>
+      </div>
+
+      <div class="setting-row">
+        <div class="setting-copy">
+          <strong>Auto-moderation</strong>
+          <span>Automatically filters spam, links, and slurs.</span>
+        </div>
+        <label class="switch">
+          <input type="checkbox" id="setting-automod" data-weight="20" onchange="recalc()">
+          <span class="slider"></span>
+        </label>
+      </div>
+
+      <div class="setting-row">
+        <div class="setting-copy">
+          <strong>Anti-raid mode</strong>
+          <span>Locks the server when join rate spikes suddenly.</span>
+        </div>
+        <label class="switch">
+          <input type="checkbox" id="setting-antiraid" data-weight="25" onchange="recalc()">
+          <span class="slider"></span>
+        </label>
+      </div>
+
+      <div class="setting-row">
+        <div class="setting-copy">
+          <strong>Action logging</strong>
+          <span>Sends kicks, bans, and warnings to #mod-log.</span>
+        </div>
+        <label class="switch">
+          <input type="checkbox" id="setting-logging" checked data-weight="15" onchange="recalc()">
+          <span class="slider"></span>
+        </label>
+      </div>
+
+      <div class="setting-row">
+        <div class="setting-copy">
+          <strong>Welcome messages</strong>
+          <span>Greets new members in #welcome with a chip pun.</span>
+        </div>
+        <label class="switch">
+          <input type="checkbox" id="setting-welcome" checked data-weight="5" onchange="recalc()">
+          <span class="slider"></span>
+        </label>
+      </div>
+
+      <div class="setting-row">
+        <div class="setting-copy">
+          <strong>Fun commands</strong>
+          <span>Enables /chips, /summondoritos, and friends.</span>
+        </div>
+        <label class="switch">
+          <input type="checkbox" id="setting-fun" checked data-weight="0" onchange="recalc()">
+          <span class="slider"></span>
+        </label>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h3>Crunch Log</h3>
+      <div class="sub">Recent activity across your server.</div>
+      <div class="log-list" id="log-list">
+        <div class="empty-state">No activity yet — logs will show up here once the bot is connected.</div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer>© 2026 Doritos Guy — this dashboard is a work in progress, mock data shown</footer>
+
+<script>
+/*
+  SERVER DATA
+  -----------
+  Empty on purpose — no fake servers baked in.
+  Wire this up to your real bot backend, e.g:
+
+    fetch('/api/guilds')
+      .then(r => r.json())
+      .then(data => { servers = data; renderServerMenu(); selectServer(servers[0]?.id); });
+
+  Each server object should look like:
+  {
+    id: 'guild-id-string',
+    name: 'Server Name',
+    online: true,
+    stats: {
+      totalMembers: 0, totalDelta: '+0 this week',
+      verifiedMembers: 0, verifiedDelta: '+0 today',
+      commandsToday: 0, commandsDelta: ''
+    },
+    settings: {
+      verification: true, automod: false, antiraid: false,
+      logging: true, welcome: true, fun: true
+    },
+    log: [ { icon: '🛡️', text: '...', time: '...' } ]
+  }
+*/
+let servers = [];
+let activeServerId = null;
+
+const weights = { verification: 20, automod: 20, antiraid: 25, logging: 15, welcome: 5, fun: 0 };
+
+function renderServerMenu(){
+  const menu = document.getElementById('server-menu');
+  if(servers.length === 0){
+    menu.innerHTML = '<div class="empty-state">No servers connected yet.</div>';
+    return;
+  }
+  menu.innerHTML = servers.map(s => `
+    <div class="server-option ${s.id === activeServerId ? 'active' : ''}" onclick="selectServer('${s.id}')">
+      <span class="dot ${s.online ? '' : 'offline'}"></span>
+      <span class="name">${s.name}</span>
+      <span class="members">${s.stats.totalMembers.toLocaleString()}</span>
+    </div>
+  `).join('');
+}
+
+function toggleMenu(){
+  document.getElementById('server-menu').classList.toggle('open');
+}
+
+document.addEventListener('click', (e) => {
+  const wrap = document.getElementById('server-select');
+  if(!wrap.contains(e.target)) document.getElementById('server-menu').classList.remove('open');
+});
+
+function selectServer(id){
+  activeServerId = id;
+  const s = servers.find(x => x.id === id);
+  document.getElementById('server-menu').classList.remove('open');
+  renderServerMenu();
+  if(!s) return;
+
+  document.getElementById('select-name').textContent = s.name;
+  document.getElementById('select-dot').className = 'dot' + (s.online ? '' : ' offline');
+
+  document.getElementById('stat-total').textContent = s.stats.totalMembers.toLocaleString();
+  document.getElementById('stat-total-delta').textContent = s.stats.totalDelta;
+  document.getElementById('stat-verified').textContent = s.stats.verifiedMembers.toLocaleString();
+  document.getElementById('stat-verified-delta').textContent = s.stats.verifiedDelta;
+  document.getElementById('stat-commands').textContent = s.stats.commandsToday.toLocaleString();
+  document.getElementById('stat-commands-delta').textContent = s.stats.commandsDelta;
+
+  Object.keys(weights).forEach(key => {
+    document.getElementById('setting-' + key).checked = !!s.settings[key];
+  });
+
+  const logList = document.getElementById('log-list');
+  logList.innerHTML = s.log.length ? s.log.map(item => `
+    <div class="log-item">
+      <div class="log-icon">${item.icon}</div>
+      <div class="log-text">
+        <div>${item.text}</div>
+        <div class="log-time">${item.time}</div>
+      </div>
+    </div>
+  `).join('') : '<div class="empty-state">No activity yet for this server.</div>';
+
+  recalc();
+}
+
+function recalc(){
+  let score = 0;
+  Object.keys(weights).forEach(key => {
+    const box = document.getElementById('setting-' + key);
+    if(box && box.checked) score += weights[key];
+  });
+  score = Math.min(score, 100);
+
+  document.getElementById('gauge').style.width = score + '%';
+  document.getElementById('score-num').textContent = score;
+
+  const badge = document.getElementById('badge');
+  let label;
+  if(score < 20) label = 'Status: Stale Chip — barely protected';
+  else if(score < 45) label = 'Status: Mildly Protected';
+  else if(score < 70) label = 'Status: Medium Heat — solid coverage';
+  else if(score < 90) label = 'Status: Hot — well defended';
+  else label = 'Status: Nuclear — maximum crunch achieved';
+  badge.textContent = label;
+}
+
+// Init
+if(servers.length){
+  selectServer(servers[0].id);
+} else {
+  document.getElementById('select-name').textContent = 'No servers';
+  document.getElementById('select-dot').className = 'dot offline';
+  renderServerMenu();
+  recalc();
+}
+</script>
+
+</body>
+</html>
