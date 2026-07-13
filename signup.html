@@ -18,8 +18,9 @@ background:#0d1117;
 display:flex;
 justify-content:center;
 align-items:center;
-height:100vh;
+min-height:100vh;
 color:white;
+padding:30px;
 }
 
 .card{
@@ -89,6 +90,38 @@ font-size:14px;
 color:#ff5a00;
 text-decoration:none;
 }
+
+.plus-card{
+margin-top:30px;
+background:#0d1117;
+border:2px solid #ff5a00;
+border-radius:16px;
+padding:25px;
+text-align:center;
+}
+
+.plus-card h2{
+color:#ffb800;
+font-size:28px;
+margin-bottom:12px;
+}
+
+.plus-card p{
+color:#d6d6d6;
+line-height:1.6;
+margin-bottom:12px;
+}
+
+.funny-line{
+color:#999;
+font-style:italic;
+}
+
+.plus-card button{
+background:#444;
+cursor:not-allowed;
+transform:none !important;
+}
 </style>
 </head>
 <body>
@@ -114,6 +147,21 @@ Create Account
 <div class="footer">
 Already have an account?
 <a href="login.html">Login</a>
+</div>
+
+<div class="plus-card">
+    <h2>⭐ DoritoPlus</h2>
+
+    <p>
+        Wanted Premium? You could have DoritoPlus, but sadly we don't support it right now.
+        Stick with the free version while we cook up something crunchy.
+    </p>
+
+    <p class="funny-line">
+        The Doritos engineering team (one guy and a potato 🥔) is still working on it.
+    </p>
+
+    <button disabled>Coming Soon™</button>
 </div>
 
 </div>
